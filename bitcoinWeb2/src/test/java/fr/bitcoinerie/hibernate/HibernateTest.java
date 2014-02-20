@@ -1,6 +1,7 @@
 package fr.bitcoinerie.hibernate;
 
 import fr.bitcoinerie.domain.Transaction.MyTransaction;
+import fr.bitcoinerie.domain.User.MyUser;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
@@ -50,7 +51,7 @@ public class HibernateTest {
 
     @Test
     public void saveMyTransaction() {
-        MyTransaction myTransaction = new MyTransaction(20, new Date(),"A","B");
+        MyTransaction myTransaction = new MyTransaction(20, new Date(),new MyUser(),new MyUser());
 
         Session session = sessionFactory.openSession();
 

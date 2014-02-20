@@ -1,6 +1,7 @@
 package fr.bitcoinerie.service;
 
 import fr.bitcoinerie.domain.Transaction.MyTransaction;
+import fr.bitcoinerie.domain.User.MyUser;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
@@ -25,6 +26,8 @@ public class MyTransactionServiceTest {
 
     @Inject
     private MyTransactionService myTransactionService;
+    private MyUser Paul;
+    private MyUser Jean;
 
     @After
     public void cleanDb() {
@@ -47,7 +50,7 @@ public class MyTransactionServiceTest {
     @Test
     public void testSave() throws Exception {
 
-        myTransactionService.save(myTransaction());
+        myTransactionService.saveTransaction(myTransaction());
 
     }
 
@@ -55,8 +58,11 @@ public class MyTransactionServiceTest {
         MyTransaction myTransaction = new MyTransaction();
         myTransaction.setMontant(24);
         myTransaction.setDate_temps(new Date());
-        myTransaction.setEmetteur("Paul");
-        myTransaction.setRecepteur("Jean");
+
+        Jean =  new MyUser("Jean", "Kevin", 100);
+        Paul =  new MyUser("Paul", "Hidalgo", 200);
+        myTransaction.setEmetteur(Paul);
+        myTransaction.setRecepteur(Jean);
         return myTransaction;
     }
 
@@ -65,9 +71,9 @@ public class MyTransactionServiceTest {
 
         MyTransaction myTransaction = myTransaction();
 
-        myTransactionService.save(myTransaction);
+        myTransactionService.saveTransaction(myTransaction);
 
-        myTransactionService.delete(myTransaction.getId_transaction());
+        myTransactionService.deleteTransaction(myTransaction.getId_transaction());
 
         Session session = sessionFactory.openSession();
 
@@ -80,21 +86,21 @@ public class MyTransactionServiceTest {
     @Test
     public void testFindAll() throws Exception {
 
-        myTransactionService.save(myTransaction());
-        myTransactionService.save(myTransaction());
+        myTransactionService.saveTransaction(myTransaction());
+        myTransactionService.saveTransaction(myTransaction());
 
-        Assert.assertEquals(2, myTransactionService.findAll().size());
+        Assert.assertEquals(2, myTransactionService.findAllTransaction().size());
 
     }
 
     @Test
     public void testFindByQuery() throws Exception {
 
-        myTransactionService.save(myTransaction());
-        myTransactionService.save(myTransaction());
+        myTransactionService.saveTransaction(myTransaction());
+        myTransactionService.saveTransaction(myTransaction());
 
-        Assert.assertEquals(2, myTransactionService.findByQuery("Paul").size());
-        Assert.assertEquals(0, myTransactionService.findByQuery("Pierre").size());
+        Assert.assertEquals(2, myTransactionService.findByQueryTransaction("Paul").size());
+        Assert.assertEquals(0, myTransactionService.findByQueryTransaction("Pierre").size());
 
     }
 
@@ -104,29 +110,34 @@ public class MyTransactionServiceTest {
 
         MyTransaction myTransaction = myTransaction();
 
-        myTransactionService.save(myTransaction);
+        myTransactionService.saveTransaction(myTransaction);
 
-        Assert.assertEquals("Paul", myTransactionService.findById(myTransaction.getId_transaction()).getEmetteur());
+        Assert.assertEquals(Paul, myTransactionService.findByIdTransaction(myTransaction.getId_transaction()).getEmetteur());
 
     }
 
     @Test
     public void testCount() throws Exception {
 
-        myTransactionService.save(myTransaction());
-        myTransactionService.save(myTransaction());
+        myTransactionService.saveTransaction(myTransaction());
+        myTransactionService.saveTransaction(myTransaction());
 
-        Assert.assertEquals(2, myTransactionService.count());
+        Assert.assertEquals(2, myTransactionService.countTransaction());
     }
 
+    /*
     @Test
     public void udpate() {
-        MyTransaction myTransaction = MyTransaction();
+        MyTransaction myTransaction = new MyTransaction();
 
-        myTransactionService.update(myTransaction);
-        myTransactionService.update(myTransaction);
+        MyTransaction myTransaction = myTransaction();
 
-        Assert.assertEquals(1, myTransactionService.count());
+
+        myTransactionService.save(myTransaction);
+        myTransactionService.updateTransaction(myTransaction);
+
+        Assert.assertEquals(1, myTransactionService.countTransaction());
     }
+    */
 
 }

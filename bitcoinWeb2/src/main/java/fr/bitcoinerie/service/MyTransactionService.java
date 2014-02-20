@@ -9,25 +9,25 @@ import java.util.List;
 public interface MyTransactionService {
     //@Override
     //@Transactional
-    void save(MyTransaction myTransaction);
+    void saveTransaction(MyTransaction myTransaction);
 
     //@Override
     //@Transactional
-    void delete(Long id);
+    void deleteTransaction(Long id);
 
     //@Override
     //@Transactional
-    List<MyTransaction> findAll();
+    List<MyTransaction> findAllTransaction();
 
     //@Override
     //@Transactional
-    List<MyTransaction> findByQuery(String query);
+    List<MyTransaction> findByQueryTransaction(String query);
 
-    MyTransaction findById(Long id);
+    MyTransaction findByIdTransaction(Long id);
 
     //@Override
     //@Transactional
-    int count();
+    int countTransaction();
 
-    void update(MyTransaction myTransaction);
+    void updateTransaction(MyTransaction myTransaction);
 }
