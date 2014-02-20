@@ -6,10 +6,14 @@ import fr.bitcoinerie.domain.User.MyUser;
 @Entity
 @Table(name = "myEchange")
 public class MyEchange {
-    @Column
+    @ManyToOne
+    @JoinColumn(name="id_user")
     private MyUser emetteur;
-    @Column
+
+    @ManyToOne
+    @JoinColumn(name="id_user")
     private MyUser recepteur;
+
     @Column
     private Float montant;
     @Column
@@ -44,12 +48,7 @@ public class MyEchange {
         this.montant=1000000.f;
 
     }
-    public void majEchange (Float montant, Date date_temps, MyUser emetteur, MyUser recepteur) {
-        /** requete SQL pourtrouver l'échange en question*/
-        date_derniere_modification= date_temps;
-        this.montant+= montant;
-        majproba( emetteur, recepteur);
-    }
+
 
     public void majproba(MyUser emetteur, MyUser recepteur){
         /** doit moidifier la proba émetteur-recepteur */

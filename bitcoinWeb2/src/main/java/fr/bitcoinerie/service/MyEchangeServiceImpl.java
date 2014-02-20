@@ -11,6 +11,7 @@ import org.hibernate.criterion.Restrictions;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.inject.Inject;
+import java.util.Date;
 import java.util.List;
 
 public class MyEchangeServiceImpl implements MyEchangeService {
@@ -51,12 +52,12 @@ public class MyEchangeServiceImpl implements MyEchangeService {
 
     @Override
     @Transactional(readOnly = true)
-    public List<MyEchange> findByEmetteurEchange(String query) {
+    public List<MyEchange> findByEmetteurEchange(String id_user) {
         Session session = sessionFactory.getCurrentSession();
 
         Criteria criteria = session.createCriteria(MyEchange.class);
 
-        criteria.add(Restrictions.ilike("emetteur", query, MatchMode.ANYWHERE));
+        criteria.add(Restrictions.ilike("emetteur", id_user, MatchMode.ANYWHERE));
 
         List<MyEchange> myEchanges = criteria.list();
 
@@ -74,10 +75,19 @@ public class MyEchangeServiceImpl implements MyEchangeService {
 
         return echange;
     }
+    @Transactional
+    @Override
+    public void majEchange (Float montant, Date date_temps, MyUser emetteur, MyUser recepteur) {
+
+        MyEchange echange=findOneEchange(emetteur,recepteur );
+        echange.setDate_derniere_modification(date_temps);
+        echange.setMontant(montant) ;
+
+    }
 
     @Transactional
     @Override
-    public int count() {
+    public int countEchange() {
         // TODO
         return findAllEchange().size();
     }
@@ -101,13 +111,5 @@ public class MyEchangeServiceImpl implements MyEchangeService {
             saveTransaction(tonEchange) ;
         }
     }    */
-    @Transactional
-    //@Override
-    public void majEchange(double montant, MyUser emetteur, MyUser recepteur) {
-        List<MyEchange>echanges=findAllEchange();
-
-    }
-
-
 
 }

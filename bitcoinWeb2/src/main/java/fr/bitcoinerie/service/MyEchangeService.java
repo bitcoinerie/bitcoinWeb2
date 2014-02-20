@@ -13,18 +13,19 @@ import java.util.List;
  * To change this template use File | Settings | File Templates.
  */
 public interface MyEchangeService {
-    @Transactional
+    //@Transactional
     void saveEchange(MyEchange echange);
 
-    @Transactional
+   // @Transactional
     void deleteEchange(Long id);
 
-    @Transactional(readOnly = true)
+   // @Transactional(readOnly = true)
     List<MyEchange> findAllEchange();
 
-    @Transactional(readOnly = true)
+   // @Transactional(readOnly = true)
     List<MyEchange> findByEmetteurEchange(String query);
 
-    @Transactional(readOnly = true)
+    MyEchange findOneEchange (String emetteur,String recepteur) ;
+    //@Transactional(readOnly = true)
     int countEchange();
 }
