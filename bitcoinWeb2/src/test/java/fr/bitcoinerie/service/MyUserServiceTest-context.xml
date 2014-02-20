@@ -28,10 +28,9 @@
                 </property>
             </bean>
         </property>
-        <property name="packagesToScan" value="fr.bitcoinerie.domain"/>
-
+        <property name="packagesToScan" value="fr.bitcoinerie.domain.User"/>
     </bean>
-    <bean class="fr.bitcoinerie.service.MyTransactionServiceImpl" />
+    <bean class="fr.bitcoinerie.service.MyUserServiceImpl" />
 
 
     <!-- ajoute un gestionnaire de transactions lié à la sessionFactory -->
