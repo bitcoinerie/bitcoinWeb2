@@ -19,7 +19,7 @@ public class MyEchangeServiceImpl implements MyEchangeService {
 
     @Override
     @Transactional
-    public void save(MyEchange echange) {
+    public void saveEchange(MyEchange echange) {
         Session session = sessionFactory.getCurrentSession();
 
         session.save(echange);
@@ -27,7 +27,7 @@ public class MyEchangeServiceImpl implements MyEchangeService {
 
     @Override
     @Transactional
-    public void delete(Long id) {
+    public void deleteEchange(Long id) {
         Session session = sessionFactory.getCurrentSession();
 
         Query query = session.createQuery("delete from MyEchange where id = :id");
