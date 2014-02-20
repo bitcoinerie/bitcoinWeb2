@@ -14,17 +14,17 @@ import java.util.List;
  */
 public interface MyEchangeService {
     @Transactional
-    void save(MyEchange echange);
+    void saveEchange(MyEchange echange);
 
     @Transactional
-    void delete(Long id);
+    void deleteEchange(Long id);
 
     @Transactional(readOnly = true)
-    List<MyEchange> findAll();
+    List<MyEchange> findAllEchange();
 
     @Transactional(readOnly = true)
-    List<MyEchange> findByEmetteur(String query);
+    List<MyEchange> findByEmetteurEchange(String query);
 
     @Transactional(readOnly = true)
-    int count();
+    int countEchange();
 }

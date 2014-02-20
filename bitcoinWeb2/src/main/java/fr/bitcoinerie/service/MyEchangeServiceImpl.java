@@ -39,7 +39,7 @@ public class MyEchangeServiceImpl implements MyEchangeService {
 
     @Override
     @Transactional(readOnly = true)
-    public List<MyEchange> findAll() {
+    public List<MyEchange> findAllEchange() {
         Session session = sessionFactory.getCurrentSession();
         Query query = session.createQuery(" from MyEchange ");
 
@@ -51,7 +51,7 @@ public class MyEchangeServiceImpl implements MyEchangeService {
 
     @Override
     @Transactional(readOnly = true)
-    public List<MyEchange> findByEmetteur(String query) {
+    public List<MyEchange> findByEmetteurEchange(String query) {
         Session session = sessionFactory.getCurrentSession();
 
         Criteria criteria = session.createCriteria(MyEchange.class);
@@ -63,7 +63,7 @@ public class MyEchangeServiceImpl implements MyEchangeService {
         return myEchanges;
     }
     @Transactional
-    public MyEchange findOne (String emetteur,String recepteur){
+    public MyEchange findOneEchange (String emetteur,String recepteur){
         Session session = sessionFactory.getCurrentSession();
         Criteria criteria = session.createCriteria(MyEchange.class);
         criteria.add(Restrictions.and(Restrictions.ilike("emetteur", emetteur, MatchMode.ANYWHERE),
@@ -79,7 +79,7 @@ public class MyEchangeServiceImpl implements MyEchangeService {
     @Override
     public int count() {
         // TODO
-        return findAll().size();
+        return findAllEchange().size();
     }
 
     /*@Override
@@ -104,7 +104,7 @@ public class MyEchangeServiceImpl implements MyEchangeService {
     @Transactional
     //@Override
     public void majEchange(double montant, MyUser emetteur, MyUser recepteur) {
-        List<MyEchange>echanges=findAll();
+        List<MyEchange>echanges=findAllEchange();
 
     }
 
